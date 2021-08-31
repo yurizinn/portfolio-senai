@@ -1,0 +1,25 @@
+package cacaniqueis;
+
+/**
+*
+
+@author kauakgds
+/
+public interface ViewCacaNiqueis {
+/*
+
+Mostra as figuras sorteadas
+*/
+public void mostraFiguras( int[] valores );
+/**
+
+Faz a animação ( os quadrinhos rodando )
+*/
+public void iniciaAnimacao();
+/**
+
+Apresenta a mensagem que o cara ganhou
+@param numero Indica o numero da figura. Assim vc pode mandar msg de diferentes valores de acordo com o numero da figura ( ex: valor ganho = ( 1 + numero da figura )* 100
+*/
+public void temosVencedor(int numero);
+}

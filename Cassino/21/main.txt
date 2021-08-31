@@ -1,0 +1,47 @@
+package casinolaspuetas;
+import java.util.Scanner;
+/**
+ *
+ * @author yurizin
+ */
+
+    public class Blackjack {
+    
+       public static void main(String[] args) {
+       
+          int dinheiro;          
+          int aposta;            
+          boolean userWins;   
+          
+          TextIO.putln("Seja bem vindo ao game blackjack(21)!");
+          TextIO.putln();
+          
+          dinheiro = 100;  
+       
+          while (true) {
+              TextIO.putln("Voce tem " + dinheiro + " reais.");
+              do {
+                 TextIO.putln("Quanto reais voce quer para apostar?  (Digite 0 para finalizar.)");
+                 TextIO.put("? ");
+                 aposta = TextIO.getlnInt();
+                 if (aposta < 0 || aposta > dinheiro)
+                     TextIO.putln("Para perguntar, voce deve colocar entre 0 e " + dinheiro + ' reais.');
+              } while (aposta < 0 || aposta > dinheiro);
+              if (aposta == 0)
+                 break;
+              userWins = jogarBlackjack();
+              if (userWins)
+                 dinheiro = dinheiro + aposta;
+              else
+                 dinheiro = dinheiro - aposta;
+              TextIO.putln();
+              if (dinheiro == 0) {
+                 TextIO.putln("Parece que voce ficou sem dinheiro!");
+                 break;
+              }
+          }
+          
+          TextIO.putln();
+          TextIO.putln("Voce sai com R$ " + dinheiro + '.');
+       
+       } 

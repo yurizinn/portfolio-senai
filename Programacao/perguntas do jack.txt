@@ -1,0 +1,36 @@
+mport javax.swing.JOptionPane;
+class Main {
+int cont = 0;
+public static void main(String[] args) {
+String pergunta1 = "Capital do Brasil?";
+String resposta1 = "Brasília";
+String pergunta2 = "Quem criou o chuveiro eletrico’?";
+String resposta2 = "Francisco Canho";
+String pergunta3 = "Quem criou o facebook?";
+String resposta3 = "Mark Zuckerberg";
+String pergunta4 = "Qual o melhor jogador de futebol do mundo?";
+String resposta4 = "Pelé";
+String pergunta5 = "Quanto tempo dura uma partida de futebol?";
+String resposta5 = "90 minutos";
+Main m = new Main();
+m.pergunta(pergunta1, resposta1);
+m.pergunta(pergunta2, resposta2);
+m.pergunta(pergunta3, resposta3);
+m.pergunta(pergunta4, resposta4);
+m.pergunta(pergunta5, resposta5);
+m.exibeResultadoFinal();
+}
+public void pergunta(String pergunta, String respostaCorreta){
+String respostaUsuario = JOptionPane.showInputDialog(null, pergunta);
+if(respostaCorreta.equals(respostaUsuario)){
+JOptionPane.showMessageDialog(null, "Acertou!");
+cont ++;
+}
+else{
+JOptionPane.showMessageDialog(null, "Errou!");
+}
+}
+public void exibeResultadoFinal(){
+JOptionPane.showMessageDialog(null, "Você acertou "+cont+" questões!");
+}
+}

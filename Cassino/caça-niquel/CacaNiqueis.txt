@@ -1,0 +1,51 @@
+package cacaniqueis;
+
+/**
+*
+
+@author kauakgds
+*/
+public class CacaNiqueis {
+private int [] numeros = null;
+private ViewCacaNiqueis vw;
+private int nFiguras;
+
+/** Creates a new instance of CacaNiqueis */
+public CacaNiqueis(int nFiguras, int nColunas, ViewCacaNiqueis view) throws Exception {
+if ( nColunas < 2 ) {
+throw new Exception(“Quantidade mínima de figuras: 2”);
+}
+
+ numeros = new int[nColunas];
+ this.nFiguras = nFiguras;
+ vw = view;
+ pegaNumero();
+ vw.mostraFiguras(numeros);
+}
+
+/**
+
+Apenas sorteia os numeros p/ vc
+/
+private void pegaNumero() {
+for ( int x = 0; x<numeros.length; x++ ){
+numeros[x] = (int) ( Math.random() * nFiguras );
+}
+}
+/*
+
+Sorteia os números
+*/
+public void sortear() {
+vw.iniciaAnimacao();
+
+pegaNumero();
+
+vw.mostraFiguras(numeros);
+
+for ( int x=1; x<numeros.length; x++ )
+if ( numeros[x] != numeros[x-1] )
+return;
+vw.temosVencedor(numeros[0]);
+}
+}

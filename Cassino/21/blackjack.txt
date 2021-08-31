@@ -1,0 +1,145 @@
+static boolean jogarBlackjack() {
+
+    
+          Deck deck;                 
+          BlackjackHand iaHand;   
+          BlackjackHand userHand;     
+          
+          deck = nova Deck();
+          iaHand = nova BlackjackHand();
+          userHand = nova BlackjackHand();
+    
+          /*  Discarte o deck, entao doe duas Cartas para cada player. */
+          
+          deck.shuffle();
+          iaHand.addCarta( deck.realCarta() );
+          iaHand.addCarta( deck.realCarta() );
+          userHand.addCarta( deck.realCarta() );
+          userHand.addCarta( deck.realCarta() );
+          
+          TextIO.putln();
+          TextIO.putln();
+          
+          /* Checar se um dos players posuem 12 Cartas/2 (duas Cartas totalizando 21).
+             O player com 21 Cartas vence o game.  ia ganha.
+          */
+          
+          if (iaHand.getBlackjackValor() == 21) {
+               TextIO.putln("ia possui a " + iaHand.getCarta(0)
+                                       + " e a " + iaHand.getCarta(1) + ".");
+               TextIO.putln("User possui a " + userHand.getCarta(0)
+                                         + " e a " + userHand.getCarta(1) + ".");
+               TextIO.putln();
+               TextIO.putln("ia possui 21 Cartas.  ia wins!.");
+               return false;
+          }
+          
+          if (userHand.getBlackjackValor() == 21) {
+               TextIO.putln("ia possui a  " + iaHand.getCarta(0)
+                                       + " e a " + iaHand.getCarta(1) + ".");
+               TextIO.putln("User possui a  " + userHand.getCarta(0)
+                                         + " e a  " + userHand.getCarta(1) + ".");
+               TextIO.putln();
+               TextIO.putln("Voce tem 21 Cartas.  You win!.");
+               return true;
+          }
+          
+          /*  Se nenhum player possui o Blackjack, jogue o game novamente.  Primeiro o user 
+              possui a chance de comprar as Cartas (i.e., to "Hit").  E entao o round acaba 
+              quando o player decide parar. Se, nesse momento o player possuir mais do que 21 Cartas,
+              ele imediatamente perde o round.
+          */
+          
+          while (true) {
+              
+               /* Diplay de Carta do jogador, e deixar decidir comprar(HIT) ou Deixar(STAND). */
+    
+               TextIO.putln();
+               TextIO.putln();
+               TextIO.putln("Your Cartas are:");
+               for ( int i = 0; i < userHand.getCartaCount(); i++ )
+                  TextIO.putln("    " + userHand.getCarta(i));
+               TextIO.putln("Seu total:  " + userHand.getBlackjackValor());
+               TextIO.putln();
+               TextIO.putln("ia esta mostrando: " + iaHand.getCarta(0));
+               TextIO.putln();
+               TextIO.put("Hit (H) ou Stand (S)? ");
+               char userAction;  
+               do {
+                  userAction = Character.toUpperCase( TextIO.getlnChar() );
+                  if (userAction != 'H' && userAction != 'S')
+                     TextIO.put("Por favor, responder com H ou S:  ");
+               } while (userAction != 'H' && userAction != 'S');
+    
+               /* Se o user compra, o user ganha uma Carta.  Se o user deixa,
+                  o round acaba (e iassim a ia vira o baralho de Cartas).
+               */
+    
+               if ( userAction == 'S' ) {
+               
+                   break;
+               }
+               else {   
+            
+                   Carta novaCarta = deck.realCarta();
+                   userHand.addCarta(novaCarta);
+                   TextIO.putln();
+                   TextIO.putln("User compra.");
+                   TextIO.putln("Sua Carta e a " + novaCarta);
+                   TextIO.putln("Seu total e " + userHand.getBlackjackValor());
+                   if (userHand.getBlackjackValor() > 21) {
+                       TextIO.putln();
+                       TextIO.putln("Voce passou de 21 Cartas.  You lose.");
+                       TextIO.putln("ia's a outra Carta foi a " 
+                                                          + iaHand.getCarta(1));
+                       return false;  
+                   }
+               }
+               
+          } 
+
+ 		/* Se chegarmos a esse ponto, o player fica com 21 cartas ou menos.  Agora, é
+             	chance da ia comprar.  Ia compra as cartas até ficar com um
+             	total de > 16.  Se a ia passar de 21 cartas, ela automaticamente perde.
+          	*/
+    
+          	TextIO.putln();
+          	TextIO.putln("User stands.");
+          	TextIO.putln("as cartas da ia sao");
+          	TextIO.putln("    " + iaHand.getCarta(0));
+          	TextIO.putln("    " + iaHand.getCarta(1));
+         	 while (iaHand.getBlackjackValor() <= 16) {
+             	 Carta novaCarta = deck.realCarta();
+            	 TextIO.putln("ia compra e fica com " + novaCarta);
+            	 iaHand.addCarta(novaCarta);
+            	 if (iaHand.getBlackjackValor() > 21) {
+              	   TextIO.putln();
+             	   TextIO.putln("ia possui mais de 21 carta.  You win!.");
+             	   return true;
+            	 }
+          	}
+         	 TextIO.putln("O total da ia " + iaHand.getBlackjackValor());
+          
+         	 /* Se chegarmos no ponto, onde ambos possuem 21 cartas ou menos. PodemosWe
+            	 determinar o vencer comparando os valores da outras maos.
+          	
+          	TextIO.putln();
+        	  if (iaHand.getBlackjackValor() == userHand.getBlackjackValor()) {
+             	TextIO.putln("Ia vence em um empate.  You lose!.");
+             	return false;
+         	 }
+         	 else if (iaHand.getBlackjackValor() > userHand.getBlackjackValor()) {
+             	TextIO.putln("Ia vence, " + iaHand.getBlackjackValor() 
+              	                + " points to " + userHand.getBlackjackValor() + ".");
+            	 return false;
+          	}
+         	 else {
+            	 TextIO.putln("You win, " + userHand.getBlackjackValor() 
+                             	 + " pontos ate " + iaHand.getBlackjackValor() + ".");
+            	 return true;
+         	 }
+    
+       	} 
+    
+    
+    	} 

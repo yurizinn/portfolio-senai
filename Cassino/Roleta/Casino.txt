@@ -1,0 +1,32 @@
+package casinosenai;
+import java.util.Scanner;
+/**
+ *
+ * @author isaqueee
+ */
+public class Casino {
+    public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+        double carteira = 100.00; 
+        double aposta ;    
+        double resultado ; 
+        String entrada ; 
+        Roleta jogo = new Roleta();
+        do{
+            System.out.print("Quanto você gostaria de Apostar?.....: ");
+            aposta = console.nextDouble();
+            carteira = carteira - aposta;
+             if(carteira < 0){
+                System.out.println(" ***!!!ATENCAO!!! VOCE FICOU SEM CREDITOS*** ");
+                break;
+            }
+            resultado = jogo.Apostar(console, aposta);
+            jogo.Imprimir();
+            console.nextLine();
+            carteira = carteira + resultado;
+            System.out.println("Voce tem R$"+ carteira +" em sua carteira.");
+            System.out.print("Apostar Mais uma vez? (S)Sim ou (N)Não.....: ");
+            entrada = console.nextLine();      
+        }while(!entrada.equalsIgnoreCase("N"));
+    }
+}
