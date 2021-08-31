@@ -2,7 +2,7 @@ package casinosenai;
 import java.util.Scanner;
 /**
  *
- * @author isaqueee
+ * @author yurizin
  */
 public class Casino {
     public static void main(String[] args) {

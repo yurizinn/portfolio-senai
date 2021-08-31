@@ -3,7 +3,7 @@ package cacaniqueis;
 /**
 *
 
-@author kauakgds
+@author yurizin
 */
 public class CacaNiqueis {
 private int [] numeros = null;
